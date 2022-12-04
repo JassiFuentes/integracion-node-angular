@@ -1,72 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Sign-In</title>
-</head>
-
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <title>RecipeBook</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+<style>html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}@media print{*,:after,:before{color:#000!important;text-shadow:none!important;background:0 0!important;box-shadow:none!important}}*{box-sizing:border-box}:after,:before{box-sizing:border-box}html{font-size:10px;-webkit-tap-highlight-color:rgba(0,0,0,0)}body{font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size:14px;line-height:1.42857143;color:#333;background-color:#fff}html,body{height:100%}body{background:#fbd3e9;background:linear-gradient(to right,#bb377d,#fbd3e9)}</style><link rel="stylesheet" href="styles.29137264c18f91c3.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles.29137264c18f91c3.css"></noscript></head>
 <body>
-    <h1>Google Sign-In</h1>
-    <hr />
+  <app-root></app-root>
+<script src="runtime.ea4cfc87e2c5bb0a.js" type="module"></script><script src="polyfills.1b5c601902988ddb.js" type="module"></script><script src="main.dcd34ea0d1dfb3b6.js" type="module"></script>
 
-    <div id="g_id_onload" data-client_id="240853337136-dafjpsui7gt9d3hksq28gbo0rqp33ops.apps.googleusercontent.com"
-        data-callback="handleCredentialResponse" data-auto_prompt="false">
-    </div>
-    <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline" data-text="sign_in_with"
-        data-shape="rectangular" data-logo_alignment="left">
-    </div>
-
-    <button id="google_signout">
-        Signout
-    </button>
-
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-
-    <script>
-        //manejar las dos url de produccion y desarrollo
-        let url = (window.location.hostname.includes('localhost')) ?
-            'http://localhost:8080/api/auth/google' :
-            'https://restserver-back.herokuapp.com/api/auth/google'
-
-
-        function handleCredentialResponse(response) {
-
-            //google token : ID_TOKEN 
-            // console.log('id_token', response.credential);
-
-            const body = { id_token: response.credential }
-
-            //fetch api, 1er arg url endpoint, 2do arg configuraicones especificar tipo de peticion sino por defecto sera GET
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(body)
-            })
-            .then( r=> r.json())
-            .then(resp => {
-                console.log(resp)
-                localStorage.setItem('email', resp.usuario.correo)
-            })
-            .catch(console.warn);
-
-        }
-
-        const button = document.getElementById('google_signout');
-        button.onclick = () => {
-            console.log( google.accounts.id )
-            google.accounts.id.disableAutoSelect()
-
-            google.accounts.id.revoke(localStorage.getItem('email'), done => {
-                localStorage.clear();
-                location.reload();
-            })
-        }
-    </script>
-</body>
-
-</html>
+</body></html>
